@@ -25,7 +25,7 @@ title:                 Embedded Developer Story
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  임베디드 개발을 진행하며 나의 지식을 기록하기 위한 블로그.
+  TEST
 
 # A shorter description for the sidebar.
 tagline:               Change `tagline` in `_config.yml`
