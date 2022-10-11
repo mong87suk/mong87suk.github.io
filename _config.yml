@@ -17,16 +17,15 @@
 
 # Language of your content in 2-letter code, e.g.: en, de.
 # You may also provide a location, e.g.: en-us, de_AT.
-lang:                  en
+lang:                  "ko-KR"
 
 # The title of your blog. Used in the sidebar and the browser tab.
-title:                 Starter Kit
+title:                 Embedded Developer Story
 
 # A short description (~150 chars) of the page used for the meta description tag.
 # Can use markdown, but no more than one paragraph (enforced by `>`)
 description:           >
-  Hydejack is a boutique Jekyll theme for hackers, nerds, and academics,
-  with a focus on personal sites that are meant to impress.
+  임베디드 개발을 진행하며 나의 지식을 기록하기 위한 블로그.
 
 # A shorter description for the sidebar.
 tagline:               Change `tagline` in `_config.yml`
