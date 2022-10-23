@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "Welcome to Jekyll!"
-date:   2022-10-09 23:55:30 +0900
+title:  "Welcome to 임베디드 History!"
+date:   2022-10-23 23:14:30 +0900
 categories: jekyll update
 ---
-You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
+임베디드 공부를 하면서 학습한 정보를 자유롭게 올리는 곳 입니다. Jekyll에 익숙하지 않아 공부하며 블로그를 꾸밀 예정 입니다.
 
 Jekyll requires blog post files to be named according to the following format:
 
