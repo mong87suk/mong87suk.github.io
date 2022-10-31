@@ -44,7 +44,7 @@ author:
 # Add links to the sidebar.
 menu:
   - title:             임베디드 History
-    url:               /example/
+    url:               /history/
 #  - title:             Documentation
 #    url:               /docs/
 #  - title:             About
