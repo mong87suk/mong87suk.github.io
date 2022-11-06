@@ -74,7 +74,7 @@ paginate_path:         /:num/
 # Theme
 # ---------------------------------------------------------------------------------------
 # Theme is for local server
-# theme: jekyll-theme-hydejack
+#theme: jekyll-theme-hydejack
 remote_theme: hydecorp/hydejack@v9
 
 
