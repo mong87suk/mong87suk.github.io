@@ -4,6 +4,7 @@ title:  "Welcome to 임베디드 History!"
 date:   2022-10-23 23:14:30 +0900
 categories: jekyll update
 ---
+
 임베디드 공부를 하면서 학습한 정보를 자유롭게 올리는 곳 입니다. Jekyll에 익숙하지 않아 공부하며 블로그를 꾸밀 예정 입니다.
 
 Jekyll requires blog post files to be named according to the following format:
