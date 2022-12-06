@@ -43,8 +43,8 @@ author:
 
 # Add links to the sidebar.
 menu:
-  - title:             임베디드 History
-    url:               /history/
+  - title:             STM32 부팅 과정
+    url:               /stm32booting/
 #  - title:             Documentation
 #    url:               /docs/
 #  - title:             About

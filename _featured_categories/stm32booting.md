@@ -3,17 +3,17 @@
 layout: list
 
 # The title of the tag's page.
-title: History
+title: STM32 부팅 과정 분석
 
 # The name of the tag, used in a post's front matter (e.g. tags: [<slug>]).
-slug: history
+slug: booting_sequence
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  임베디드를 공부하며 기록하는 공간
+  STM32가 부팅한 후 main 함수에 진입 되는 과정을 분석한 자료
 
 # (Optional) You can disable grouping posts by date.
-# no_groups: true
+no_groups: true
 
 # Exclude this example category from the sitemap.
 # DON'T USE THIS SETTING IN YOUR CATEGORIES!
