@@ -252,8 +252,8 @@ typedef struct
 #define FLASH_ACR_LATENCY                   FLASH_ACR_LATENCY_Msk              /*!< LATENCY[2:0] bits (Latency) */
 ~~~
 
-<br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png.png){: width="500" height="500"}
-<br /> ![fcc_latency_value_after_reset.png](/assets/img/blog/fcc_latency_value_after_reset.png.png){: width="500" height="500"}
+<br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png){: width="500" height="500"}
+<br /> ![fcc_latency_value_after_reset.png](/assets/img/blog/fcc_latency_value_after_reset.png){: width="500" height="500"}
 
 ~~~
 // FLatency = FLASH_LATENCY_2
