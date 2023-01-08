@@ -156,7 +156,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 
 RCC_CFGR 레지스터 값은 아래 그림과 같이 Reset이 되면 0으로 설정이 된다.
 
-<br /> ![rcc_cfgr_reset_register_value](/assets/img/blog/rcc_cfgr_reset_register_value.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
 
 ~~~
 1. if ((__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_SYSCLKSOURCE_STATUS_HSE)
