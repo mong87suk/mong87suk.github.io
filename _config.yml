@@ -45,8 +45,8 @@ author:
 menu:
   - title:             STM32 부팅 과정
     url:               /stm32booting/
-#  - title:             Documentation
-#    url:               /docs/
+  - title:             System Clock 설정 과정
+    url:               /systemClockSetFlow/
 #  - title:             About
 #    url:               /about/
 
