@@ -4,7 +4,7 @@ title: RCC Clock Configuration 설정 순서
 tags: systick_sequence
 sitemap: false
 related_posts:
-- systick/_posts/2023-01-08-RCC Oscillators 설정.md
+- 
 ---
 
 STM32에서 Clock Configuration을 설정하는 과정을 확인해 보았다. 
