@@ -46,7 +46,7 @@ menu:
   - title:             STM32 부팅 과정
     url:               /stm32booting/
   - title:             System Clock 설정 과정
-    url:               /systick/
+    url:               /system_clock_config/
 #  - title:             About
 #    url:               /about/
 
