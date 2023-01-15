@@ -221,6 +221,7 @@ stm32f103xb.h가 include 되는 과정
   6. #include "stm32f103xb.h"
 ~~~
 
+<br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png){: width="500" height="500"}
 ~~~
 stm32f103xb.h
 1. if (FLatency > __HAL_FLASH_GET_LATENCY())
@@ -249,7 +250,11 @@ typedef struct
 
 #define FLASH_ACR_LATENCY_Pos               (0U)                               
 #define FLASH_ACR_LATENCY_Msk               (0x7UL << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000007 */
-#define FLASH_ACR_LATENCY                   FLASH_ACR_LATENCY_Msk              /*!< LATENCY[2:0] bits (Latency) */
+#define FLASH_ACR_LATENCY                   FLASH_ACR_LATENCY_Msk              /*!< LATENCY[2:0] bits 
+(Latency) */
+#define FLASH_LATENCY_2                     FLASH_ACR_LATENCY_1       /*!< FLASH Two Latency cycles */
+#define FLASH_ACR_LATENCY_1                 (0x2UL << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000002 */
+#define FLASH_ACR_LATENCY_Pos               (0U)
 ~~~
 
 <br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png){: width="500" height="500"}
@@ -268,7 +273,7 @@ typedef struct
 #define FLASH_ACR_LATENCY_Msk               (0x7UL << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000007 */
 #define FLASH_ACR_LATENCY_Pos               (0U) 
 ~~~
-
+<br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png){: width="500" height="500"}
 ~~~
 3. __HAL_FLASH_GET_LATENCY()
 #define __HAL_FLASH_GET_LATENCY()           (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY))
@@ -304,7 +309,7 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 ~~~
 
 <br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
-
+<br /> ![rcc_cfgr_register_ppre_bit](/assets/img/blog/rcc_cfgr_register_ppre_bit.png){: width="500" height="500"}
 ~~~
 6. MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE1, RCC_HCLK_DIV16);
 // PPRE1: APB low-speed prescaler (APB1)
@@ -335,6 +340,8 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 #define RCC_CLOCKTYPE_PCLK2              0x00000008U /*!< PCLK2 to configure */
 ~~~
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_ppre2](/assets/img/blog/rcc_cfgr_register_ppre2.png){: width="500" height="500"}
 ~~~
 8. MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE2, (RCC_HCLK_DIV16 << 3));
 
@@ -352,7 +359,8 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 
 #define READ_REG(REG)         ((REG))
 ~~~
-
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_hpre_bit](/assets/img/blog/rcc_cfgr_register_hpre_bit.png){: width="500" height="500"}
 ~~~
 9. MODIFY_REG(RCC->CFGR, RCC_CFGR_HPRE, RCC_ClkInitStruct->AHBCLKDivider);
 RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
@@ -394,6 +402,7 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 ~~~
 
 <br />![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="100%" height="100%"}
+<br />![rcc_cr_register_pllrdy](/assets/img/blog/rcc_cr_register_pllrdy.png){: width="100%" height="100%"}
 ~~~
 13. if (__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
 
@@ -406,7 +415,8 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                                                                               RCC->CSR)) & (1U << ((__FLAG__) & RCC_FLAG_MASK)))
 #define RCC_FLAG_MASK                    ((uint8_t)0x1F)
 ~~~
-
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_sw_bit](/assets/img/blog/rcc_cfgr_register_sw_bit.png){: width="500" height="500"}
 ~~~
 14. __HAL_RCC_SYSCLK_CONFIG(RCC_ClkInitStruct->SYSCLKSource);
 
@@ -434,6 +444,9 @@ RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 <br />
 <br />![rcc_cfgr_after_write_sw](/assets/img/blog/rcc_cfgr_after_write_sw.png){: width="100%" height="100%"}
 
+
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_sws_bit](/assets/img/blog/rcc_cfgr_register_sws_bit.png){: width="500" height="500"}
 ~~~
 15. while (__HAL_RCC_GET_SYSCLK_SOURCE() != (RCC_ClkInitStruct->SYSCLKSource << RCC_CFGR_SWS_Pos))
 
@@ -448,6 +461,7 @@ RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 #define READ_BIT(REG, BIT)    ((REG) & (BIT))
 ~~~
 
+<br /> ![flash_acr_register.png](/assets/img/blog/flash_acr_register.png){: width="500" height="500"}
 ~~~
 16. if (FLatency > __HAL_FLASH_GET_LATENCY())
 
@@ -468,6 +482,8 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 #define RCC_CLOCKTYPE_PCLK1              0x00000004U /*!< PCLK1 to configure */
 ~~~
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_ppre_bit](/assets/img/blog/rcc_cfgr_register_ppre_bit.png){: width="500" height="500"}
 ~~~
 18. MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE1, RCC_ClkInitStruct->APB1CLKDivider);
 
@@ -497,6 +513,8 @@ RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
 #define RCC_CLOCKTYPE_PCLK2              0x00000008U /*!< PCLK2 to configure */
 ~~~
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_ppre2](/assets/img/blog/rcc_cfgr_register_ppre2.png){: width="500" height="500"}
 ~~~
 20. MODIFY_REG(RCC->CFGR, RCC_CFGR_PPRE2, ((RCC_ClkInitStruct->APB2CLKDivider) << 3));
 
@@ -517,6 +535,7 @@ RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
 #define READ_REG(REG)         ((REG))
 ~~~
+
 
 ~~~
 21. SystemCoreClock = HAL_RCC_GetSysClockFreq() >> AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos];
@@ -562,7 +581,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
       // #define RCC_CFGR_PLLMULL_Pos                 (18U)                             
       // #define RCC_CFGR_PLLMULL_Msk                 (0xFUL << RCC_CFGR_PLLMULL_Pos)    /*!< 0x003C0000 */
       // #define RCC_CFGR_PLLMULL                     RCC_CFGR_PLLMULL_Msk              /*!< PLLMUL[3:0] bits (PLL multiplication factor) */
-      // (tmpreg & RCC_CFGR_PLLMULL) 의 값은    Hex:0x1c0000, Binary:111000000000000000000
+      // (tmpreg & RCC_CFGR_PLLMULL) 의 값은    Hex:0x1c0000, Binary:1 1100 0000 0000 0000 0000
       // ((tmpreg & RCC_CFGR_PLLMULL) >> RCC_CFGR_PLLMULL_Pos) 의 값은 Hex:0x7, Binary:111
       // aPLLMULFactorTable[(uint32_t)(tmpreg & RCC_CFGR_PLLMULL) >> RCC_CFGR_PLLMULL_Pos] 의 값은 Decimal:9
       // pllmul 은 9 이다.                 

@@ -12,6 +12,9 @@ STM32에서 Oscillator를 설정하는 과정을 확인해 보았다.
 <br /> Oscillator를 설정하기 위해 아래와 같이 설정 후 HAL_RCC_OscConfig(&RCC_OscInitStruct)를 호출 한다.
 <br /> Clock 설정은 아래와 같이 세팅했다.
 <br />![clock_setting](/assets/img/blog/clock_setting.png){: width="100%" height="100%"}
+<br />![system_architecture](/assets/img/blog/system_architecture.png){: width="100%" height="100%"}
+<br />![stm32f103xx_performace_block_diagram](/assets/img/blog/stm32f103xx_performace_block_diagram.png){: width="100%" height="100%"}
+<br />![clock_tree](/assets/img/blog/clock_tree.png){: width="100%" height="100%"}
 ~~~
 void SystemClock_Config(void)
 {
@@ -43,7 +46,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     ....
     /* When the HSE is used as system clock or clock source for PLL in these cases it is not allowed to be disabled */
     // RCC_CFGR(Clock configuration register) 레지스터 값은 리셋시 0으로 설정 되며 system clock이 HSE 또는 PLLCLK으로 설정 되어 있는지 확인
-    // 1. RCC_CFGR 레지스터의 SWS 비트 값 확인
+    // 1. RCC_CFGR 레지스터의 SWS 비트 값 확인, 사용중인 시스템 클락이 있는지 확인한다.
     if ((__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_SYSCLKSOURCE_STATUS_HSE)
         || ((__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_SYSCLKSOURCE_STATUS_PLLCLK) && (__HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSE)))
     {
@@ -57,7 +60,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
       /* Set the new HSE configuration ---------------------------------------*/
       // RCC_OscInitStruct.HSEState = RCC_HSE_ON; 
       // HSEState는 RCC_HSE_ON으로 설정 되어 있다.
-      // 2.RCC->CR (Clock control register) 레지스터의 HSION 비트 값을으로 세팅 ENABLE
+      // 2.RCC->CR (Clock control register) 레지스터의 HSㄷON 비트 값을으로 세팅 ENABLE
       // RCC->CR 레지스터에 HSION 비트 값을으로 세팅 ENABLE로 세팅을 해도 
       // RCC->CFGR 레지스터의 SWS의 비트 HSE oscillator used as system clock 로 세팅되지는 않는다.
       __HAL_RCC_HSE_CONFIG(RCC_OscInitStruct->HSEState);
@@ -157,7 +160,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 RCC_CFGR 레지스터 값은 아래 그림과 같이 Reset이 되면 0으로 설정이 된다.
 
 <br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
-
+<br /> ![rcc_cfgr_register_sws_bit](/assets/img/blog/rcc_cfgr_register_sws_bit.png){: width="500" height="500"}
 ~~~
 1. if ((__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_SYSCLKSOURCE_STATUS_HSE)
         || ((__HAL_RCC_GET_SYSCLK_SOURCE() == RCC_SYSCLKSOURCE_STATUS_PLLCLK) && (__HAL_RCC_GET_PLL_OSCSOURCE() == RCC_PLLSOURCE_HSE)))
@@ -206,7 +209,10 @@ typedef struct
 #define RCC_CFGR_PLLSRC_Msk                  (0x1UL << RCC_CFGR_PLLSRC_Pos)     /*!< 0x00010000 */
 #define RCC_CFGR_PLLSRC                      RCC_CFGR_PLLSRC_Msk               /*!< PLL entry clock source */
 ~~~
-
+<br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cr_register_HSEON_bit](/assets/img/blog/rcc_cr_register_HSEON_bit.png){: width="500" height="500"}
+<br />
 ~~~
  /* Set the new HSE configuration ---------------------------------------*/
 // RCC_OscInitStruct.HSEState = RCC_HSE_ON; 
@@ -247,6 +253,8 @@ __HAL_RCC_HSE_CONFIG(RCC_OscInitStruct->HSEState);
 <br />아래와 같이 RCC->CR 레지스터가 RCC->CR 의 HSEON을 Setting 후 HSERDY 값도 1로 변한 것을 알 수 있다.
 <br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
 <br />
+<br /> ![rcc_cr_register_hse_read_bit](/assets/img/blog/rcc_cr_register_hse_read_bit.png){: width="500" height="500"}
+<br />
 <br /> ![rcc_cr_after_reset_value](/assets/img/blog/rcc_cr_after_reset_value.png){: width="500" height="500"}
 <br />
 <br /> ![rcc_cr_after_set_rcc_cr_set_hse](/assets/img/blog/rcc_cr_after_set_rcc_cr_set_hse.png){: width="500" height="500"}
@@ -282,6 +290,8 @@ typedef enum
 #define RCC_FLAG_MASK                    ((uint8_t)0x1F)                                                                       
 ~~~
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> ![rcc_cfgr_register_sws_bit](/assets/img/blog/rcc_cfgr_register_sws_bit.png){: width="500" height="500"}
 ~~~
 4. __HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK
 
@@ -303,6 +313,10 @@ typedef enum
 #define READ_BIT(REG, BIT)    ((REG) & (BIT))
 ~~~
 
+<br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cr_register_pllon](/assets/img/blog/rcc_cr_register_pllon.png){: width="500" height="500"}
+<br />
 ~~~
 5. __HAL_RCC_PLL_DISABLE()
 
@@ -358,6 +372,11 @@ typedef enum
 <br /> 5. [https://feelpass.tistory.com/entry/Cortex-M3-Bit-band](https://feelpass.tistory.com/entry/Cortex-M3-Bit-band)
 <br /> 6. [https://scienceprog.com/bit-band-operations-with-arm-cortex-microcontrollers/](https://scienceprog.com/bit-band-operations-with-arm-cortex-microcontrollers/)
 
+<br /> 
+<br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cr_register_pllrdy](/assets/img/blog/rcc_cr_register_pllrdy.png){: width="500" height="500"}
+<br />
 ~~~
 6. while (__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY)  != RESET)
 
@@ -370,6 +389,10 @@ typedef enum
                                                                               RCC->CSR)) & (1U << ((__FLAG__) & RCC_FLAG_MASK)))
 ~~~   
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> 
+<br /> ![rcc_cfgr_pllxtpre](/assets/img/blog/rcc_cfgr_pllxtpre.png){: width="500" height="500"}
+<br /> 
 ~~~
 7. __HAL_RCC_HSE_PREDIV_CONFIG(RCC_OscInitStruct->HSEPredivValue);
 
@@ -393,6 +416,12 @@ typedef enum
 
 ~~~
 
+<br /> ![rcc_cfgr_register](/assets/img/blog/rcc_cfgr_register.png){: width="500" height="500"}
+<br /> 
+<br /> ![rcc_cfgr_register_pllsrc_bit](/assets/img/blog/rcc_cfgr_register_pllsrc_bit.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cfgr_register_pllul_bit](/assets/img/blog/rcc_cfgr_register_pllul_bit.png){: width="500" height="500"}
+<br />
 ~~~
 /* Configure the main PLL clock source and multiplication factors. */
 // RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
@@ -427,6 +456,10 @@ typedef enum
 #define READ_REG(REG)         ((REG))
 ~~~
 
+<br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cr_register_pllon](/assets/img/blog/rcc_cr_register_pllon.png){: width="500" height="500"}
+<br />
 ~~~
 9. __HAL_RCC_PLL_ENABLE();
 
@@ -458,7 +491,10 @@ typedef enum
 
 #define RCC_CR_PLLON_Pos                     (24U) 
 ~~~
-
+<br /> ![rcc_cr_register](/assets/img/blog/rcc_cr_register.png){: width="500" height="500"}
+<br />
+<br /> ![rcc_cr_register_pllrdy](/assets/img/blog/rcc_cr_register_pllrdy.png){: width="500" height="500"}
+<br />
 ~~~
 10. while (__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY)  == RESET)
 
