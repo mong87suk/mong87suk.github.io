@@ -2,7 +2,6 @@
 layout: post
 title: RCC Oscillators 설정 순서
 tags: systick_sequence
-sitemap: false
 related_posts:
 - systick/_posts/2023-01-08-RCC Clock Configuration 설정.md
 ---
