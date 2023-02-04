@@ -13,11 +13,13 @@ related_posts:
 
 2. FLASH_ACR레지스터의 LATENCY 비트로 flash access time을 세팅한다.
 
-3. RCC_CFGR 레지스터의 PPRE1(APB1: APB Low-speed prescaler) 비트에 RCC_HCLK_DIV16을 세팅한다.
+3. RCC_CFGR 레지스터의 PPRE1(APB1: APB Low-speed prescaler) 비트에 RCC_HCLK_DIV16을 세팅한다. 
+<br /> APB: Advanced Peripheral Bus
 
 4. RCC_CFGR 레지스터의 PPRE2(APB2: APB high-speed prescaler)비트에 RCC_HCLK_DIV16을 세팅한다.
 
 5. RCC_CFGR 레지스터의 HPRE(AHB prescaler)비트에 RCC_SYSCLK_DIV1 을 세팅한다. HCLK(AHB Clock) 비율을 설정 한다.
+<br />   AHB: Advanced High-performance Bus
 <br />   => AHB로 부터 APB1, APB2로 클락이 공급 된다. APB1, APB2로 클락을 RCC_HCLK_DIV16 최대로 줄 였을 비율로 
 <br />      AHB 클락이 공급 되는지 확인하기 위함이다.
 
